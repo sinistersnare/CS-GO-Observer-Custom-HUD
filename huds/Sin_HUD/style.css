@@ -246,8 +246,6 @@
 		/*transform: skewX(40deg);*/
 	}
 
-
-
 	#player-container i {
 		font-size: 30px;
 		left: 3px;
@@ -258,7 +256,7 @@
 	}
 
 	#health-text {
-		background-image: url("hp.png");
+		background-image: url("images/hp.png");
 		background-repeat: no-repeat;
 		background-size: 30%;
 		background-position: left center;

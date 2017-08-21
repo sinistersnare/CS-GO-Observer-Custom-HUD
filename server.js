@@ -5,7 +5,6 @@ var gui = require('nw.gui'),
 	http = require('http'),
 	debug = false;
 
-
 // Get the current window
 var icons = {
 	hegrenade: "images/weapons/weapon_hegrenade.png",
@@ -325,6 +324,7 @@ var obs_stats = observed.getStats();
 
 	var tname = [];
 	var tscore = []
+	// TODO dynamically show team names
 	//tname.ct = team_ct.name;
 	//tname.t = team_t.name;
 	tname.ct = "COUNTER TERRORISTS";
@@ -473,9 +473,8 @@ var obs_stats = observed.getStats();
 					$("#eq_money_1").html("$" + eq_money.first);
 					//$("#team_1 #team_name").html(team_ct.name);
 					//$("#team_1 #team_score").html(tscore[left.toLowerCase()]);
-
 				}
-			}else if((obs_sl >= 6 && obs_sl <= 10) || obs_sl == 0) {
+			} else if((obs_sl >= 6 && obs_sl <= 10) || obs_sl == 0) {
 				if(real_side != "ct"){
 					$(".round_team_1_name").html(tname.ct);
 					$(".round_team_2_name").html(tname.t);
@@ -511,6 +510,7 @@ var obs_stats = observed.getStats();
 					$("#eq_money_2").html("$" + eq_money.sec);
 				}
 			}
+
 			//NAMES:
 			$("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #bar_username").html(player.name.split(" ").join(""));
 
@@ -559,22 +559,21 @@ var obs_stats = observed.getStats();
 					if(side == "t"){
 						addclass += " img-hor";
 					}
-						$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" />");
+					$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" />");
 
 				} else if(weapon.type == "C4"){
 					$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html("<img src=\"images/bomb.png\" class=\"invert_brightness\"/>");
 
 				} else if(weapon.type != "Knife"){
 					var addclass= "";
-					var name = weapon.name.replace("weapon_", "");
+					var name = weapon.name;
 					if(weapon.state == "active"){
 						addclass = "checked";
-
 					}
 					if(side == "t"){
 							addclass = addclass + " img-hor";
 					}
-						$("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
+					$("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").prepend("<img src='images/weapons/" + icons[name] + ".png' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
 				}
 			}
 

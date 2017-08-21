@@ -2,12 +2,22 @@
 
 Shout-out to [RedSparr0w](https://github.com/RedSparr0w) for base code and idea! You are the best, man.
 
+## Sin's instructions for running
+
+- Make sure Node.Js and NW.js binaries are added to PATH.
+- Join server to observe
+- In this folder, run `$ nw .` to run the UI Selector
+- Select Sin HUD for best UI
+- please report any missing features or bugs!
+
+## End Sin's instructions.
+
 ## To-do before running
 - Node.js needs to be installed
 - files/cfg/gamestate_integration_observerspectator.cfg needs to be placed in cfg folder in CS:GO location
 - files/cfg/observer.cfg needs to be placed in cfg folder in CS:GO location
 - CS:GO needs to run on Fullscreen Windowed (I know people may dislike it, but since it's only for observation, soo...)
-- After running CS:GO and connecting to match (or replaying a demo, you can use this in  it too), type to console `exec observer.cfg`, it makes everything default disappear besides map and killfeed 
+- After running CS:GO and connecting to match (or replaying a demo, you can use this in  it too), type to console `exec observer.cfg`, it makes everything default disappear besides map and killfeed
 
 ## PGL's style example
 ![Here](http://i.imgur.com/p9KNsHB.png)
@@ -18,7 +28,7 @@ So this is possible to do with everything below.
  - I installed NW.js (nwjs.io) to C:\nw
  - I unpacked this whole script to C:\server
  - I run command in cmd "C:\nw\nw.exe C:\server"
- 
+
 I'm not good at this stuff, I've probably made milions of mistakes and anyone with experience could have done it better. But I was the first :) Also if I can, I will help with problems.
 
 Somewhere there is "pgl example.zip" which contains server.js configured to look kinda-like PGL's HUD and files needed. Sorry there is such a mess :c
@@ -64,22 +74,22 @@ function updatePage(data) {
 	var player = data.getObserved(); //Getting spectated players object
     var team_ct = data.getCT(); //CT's informations
     var team_t = data.getT(); //T's informations
-    
+
     var round = data.round();
-    
+
     $("#team_ct_name").html(team_ct.name); //Setting ct's name
     $("#team_ct_score").html(team_ct.score); //Setting t's name
-    
+
     var playerlist = data.getPlayers(); // Array of player objects
     for(var steamid in playerlist){
     	/* Actions here will be taken for each player */
         var cur_player = playerlist[steamid];
-      	
+
         var cur_name = cur_player.name;
         var cur_stats = cur_player.getStats();
     }
-    
-    
+
+
 }
 ```
 
@@ -103,7 +113,7 @@ function updatePage(data) {
 	var player = data.getObserved(); //Getting spectated players object
     var name =  player.name; //Getting name of that player
     var slot = player.observer_slot; // Getting slot of that player
-    
+
      if(player.team == "CT"){...}
 }
 ```
@@ -146,11 +156,11 @@ function updatePage(data) {
 	var player = data.getObserved(); //Getting spectated players object
     var stats =  player.getStats();
     var weapons = player.getWeapons();
-    
+
     $("#health_box").html(stats.health);
-    
+
     for(var k in weapons){...}
-    
+
     if(stats.defusekit !== true){
     	$("#defusekit").css("display", "hidden");
     }
