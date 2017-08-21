@@ -8,60 +8,60 @@ var gui = require('nw.gui'),
 
 // Get the current window
 var icons = {
-	hegrenade: "images/weapons/weapon_hegrenade.png",
-	molotov: "images/weapons/weapon_molotov.png",
-	flashbang: "images/weapons/weapon_flashbang.png",
-	decoy: "images/weapons/weapon_decoy.png",
-	smokegrenade: "images/weapons/weapon_smokegrenade.png",
-	incgrenade: "images/weapons/weapon_incgrenade.png",
+	hegrenade: "files/img/hg.png",
+	molotov: "files/img/molotov.png",
+	flashbang: "files/img/flashbang.php",
+	decoy: "files/img/decoy.png",
+	smokegrenade: "files/img/smoke.png",
+	incgrenade: "files/img/ctmolotv.png",
 
-    cz75a: "images/weapons/weapon_C75a.png",
-    deagle: "images/weapons/weapon_Deagle.png",
-    elite: "images/weapons/weapon_Elite.png",
-    fiveseven: "images/weapons/weapon_Fiveseven.png",
-    glock: "images/weapons/weapon_Glock18.png",
-    p250: "images/weapons/weapon_P250.png",
-    hkp2000: "images/weapons/weapon_Hkp2000.png",
-    tec9: "images/weapons/weapon_Tec9.png",
-    usp_silencer: "images/weapons/weapon_Usps.png",
-    mag7: "images/weapons/weapon_Mag7.png",
-    revolver: "images/weapons/weapon_Revolver.png",
-    nova: "images/weapons/weapon_Nova.png",
-    sawedoff: "images/weapons/weapon_Sawedoff.png",
-    xm1014: "images/weapons/weapon_Xm1014.png",
-    mac10: "images/weapons/weapon_Mac10.png",
-    mp7: "images/weapons/weapon_Mp7.png",
-    mp9: "images/weapons/weapon_Mp9.png",
-    p90: "images/weapons/weapon_P90.png",
-    bizon: "images/weapons/weapon_Bizon.png",
-    ump45: "images/weapons/weapon_Ump45.png",
-    ak47: "images/weapons/weapon_Ak47.png",
-    aug: "images/weapons/weapon_Aug.png",
-    famas: "images/weapons/weapon_Famas.png",
-    galilar: "images/weapons/weapon_Galilar",
-    m4a1_silencer: "images/weapons/weapon_M4a1s.png",
-    m4a1: "images/weapons/weapon_M4a4",
-    sg556: "images/weapons/weapon_Sg556.png",
-    awp: "images/weapons/weapon_Awp.png",
-    g3sg1: "images/weapons/weapon_G3sg1.png",
-    ssg08: "images/weapons/weapon_Ssg08.png",
-    scar20: "images/weapons/weapon_Scar20.png",
-    m249: "images/weapons/weapon_M249.png",
-    negev: "images/weapons/weapon_Negev.png",
-	knife: "images/weapons/weapon_Knife_ct.png",
-   	knife_t: "images/weapons/weapon_Knife_t.png",
-   	knife_bayonet: "images/weapons/weapon_Csgo_knife_Bayonet.png",
-    knife_butterfly: "images/weapons/weapon_Knife_butterfly.png",
-    knife_falchion: "images/weapons/weapon_Falchion_Knife.png",
-    knife_flip: "images/weapons/weapon_Knife_flip.png",
-    knife_gut: "images/weapons/weapon_Knife_gut.png",
-    knife_tactical: "images/weapons/weapon_Knife_hustman.png",
-    knife_karambit: "images/weapons/weapon_Knife_karambit.png",
-    knife_m9_bayonet: "images/weapons/weapon_Csgo_knife_M9_Bayonet.png",
-    knife_shadow_dagger: "images/weapons/weapon_Knife_push.png",
-    knife_survival_bowie: "images/weapons/weapon_Survival_bowie.png"
+    cz75a: "http://vignette3.wikia.nocookie.net/cswikia/images/c/cf/C75a_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    deagle: "http://vignette2.wikia.nocookie.net/cswikia/images/7/7d/Deagle_hud_go.png/revision/latest/scale-to-width-down/400",
+    elite: "http://vignette2.wikia.nocookie.net/cswikia/images/8/82/Elite_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    fiveseven: "http://vignette2.wikia.nocookie.net/cswikia/images/9/9c/Fiveseven_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    glock: "http://vignette2.wikia.nocookie.net/cswikia/images/3/33/Glock18_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    p250: "http://vignette2.wikia.nocookie.net/cswikia/images/5/57/P250_hud.png/revision/latest/scale-to-width-down/400",
+    hkp2000: "http://vignette1.wikia.nocookie.net/cswikia/images/6/67/Hkp2000_hud.png/revision/latest/scale-to-width-down/400",
+    tec9: "http://vignette3.wikia.nocookie.net/cswikia/images/5/55/Tec9_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    usp_silencer: "http://vignette2.wikia.nocookie.net/cswikia/images/7/73/Usps_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    mag7: "http://vignette2.wikia.nocookie.net/cswikia/images/2/2e/Mag7_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    revolver: "http://vignette2.wikia.nocookie.net/cswikia/images/7/7d/Deagle_hud_go.png/revision/latest/scale-to-width-down/400",
+    nova: "http://vignette4.wikia.nocookie.net/cswikia/images/c/c8/Nova_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    sawedoff: "http://vignette1.wikia.nocookie.net/cswikia/images/9/94/Sawedoff_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    xm1014: "http://vignette2.wikia.nocookie.net/cswikia/images/a/ad/Xm1014_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    mac10: "http://vignette2.wikia.nocookie.net/cswikia/images/f/f7/Mac10_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    mp7: "http://vignette4.wikia.nocookie.net/cswikia/images/8/8d/Mp7_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    mp9: "http://vignette2.wikia.nocookie.net/cswikia/images/1/14/Mp9_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    p90: "http://vignette3.wikia.nocookie.net/cswikia/images/b/bd/P90_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    bizon: "http://vignette1.wikia.nocookie.net/cswikia/images/d/d5/Bizon_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    ump45: "http://vignette3.wikia.nocookie.net/cswikia/images/c/c4/Ump45_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    ak47: "http://vignette1.wikia.nocookie.net/cswikia/images/7/76/Ak47_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    aug: "http://vignette2.wikia.nocookie.net/cswikia/images/6/6f/Aug_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    famas: "http://vignette2.wikia.nocookie.net/cswikia/images/8/8f/Famas_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    galilar: "http://vignette1.wikia.nocookie.net/cswikia/images/4/4a/Galilar_hud.png/revision/latest/scale-to-width-down/400",
+    m4a1_silencer: "http://vignette3.wikia.nocookie.net/cswikia/images/4/4f/M4a1s_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    m4a1: "http://vignette2.wikia.nocookie.net/cswikia/images/d/d9/M4a4_hud.png/revision/latest/scale-to-width-down/400",
+    sg556: "http://vignette1.wikia.nocookie.net/cswikia/images/9/9b/Sg556_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    awp: "http://vignette3.wikia.nocookie.net/cswikia/images/e/eb/Awp_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    g3sg1: "http://vignette4.wikia.nocookie.net/cswikia/images/4/4a/G3sg1_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    ssg08: "http://vignette4.wikia.nocookie.net/cswikia/images/3/3c/Ssg08_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    scar20: "http://vignette4.wikia.nocookie.net/cswikia/images/c/c9/Scar20_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    m249: "http://vignette2.wikia.nocookie.net/cswikia/images/e/ea/M249_hud_csgo.png/revision/latest/scale-to-width-down/400",
+    negev: "http://vignette2.wikia.nocookie.net/cswikia/images/b/be/Negev_hud.png/revision/latest/scale-to-width-down/400",
+	knife: "http://vignette2.wikia.nocookie.net/cswikia/images/4/4b/Knife_ct_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+   	knife_t: "http://vignette3.wikia.nocookie.net/cswikia/images/2/28/Knife_t_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+   	knife_bayonet: "http://vignette2.wikia.nocookie.net/cswikia/images/2/28/Csgo_knife_Bayonet.png/revision/latest/scale-to-width-down/400",
+    knife_butterfly: "http://vignette2.wikia.nocookie.net/cswikia/images/d/df/Knife_butterfly_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_falchion: "http://vignette4.wikia.nocookie.net/cswikia/images/7/7e/Falchion_Knife_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_flip: "http://vignette3.wikia.nocookie.net/cswikia/images/a/a4/Knife_flip_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_gut: "http://vignette2.wikia.nocookie.net/cswikia/images/f/ff/Knife_gut_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_tactical: "http://vignette2.wikia.nocookie.net/cswikia/images/5/53/Knife_hustman_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_karambit: "http://vignette4.wikia.nocookie.net/cswikia/images/5/57/Knife_karambit_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_m9_bayonet: "http://vignette4.wikia.nocookie.net/cswikia/images/d/d3/Csgo_knife_M9_Bayonet.png/revision/latest/scale-to-width-down/400",
+    knife_shadow_dagger: "http://vignette4.wikia.nocookie.net/cswikia/images/f/f1/Knife_push_hud_outline_csgo.png/revision/latest/scale-to-width-down/400",
+    knife_survival_bowie: "https://vignette4.wikia.nocookie.net/cswikia/images/8/8c/Survival_bowie_hud_outline.png/revision/latest/scale-to-width-down/400"
+
 }
-
 var win = gui.Window.get();
 win.width = screen.width;
 win.height = screen.height;
@@ -375,7 +375,7 @@ var obs_stats = observed.getStats();
 			var weapon = wep[key];
 			if (weapon.type == "Grenade") {
 				for(var x = 0; x < weapon.ammo_reserve; x++){
-					$("#nades").append("<img src='images/weapons/" + weapon.name + ".png' style='height: 35px; max-height: 35px; width:auto; filter: invert(100%); float:right; margin-right:10px;'/>");
+					$("#nades").append("<img src='" + weapon.name + ".png' style='height: 35px; max-height: 35px; width:auto; filter: invert(100%); float:right; margin-right:10px;'/>");
 				}
 			}
 			if (weapon.state == "active" || weapon.state == "reloading") {
@@ -394,9 +394,9 @@ var obs_stats = observed.getStats();
 		$("#armor-text").html(obs_stats.armor);
 		$("#health-text").html(obs_stats.health);
 		if(obs_stats.helmet){
-			$("#armor-text").css("background-image", "url('images/helmet.png')")
+			$("#armor-text").css("background-image", "url('helmet.png')")
 		} else {
-			$("#armor-text").css("background-image", "url('images/armor.png')")
+			$("#armor-text").css("background-image", "url('armor.png')")
 		}
 	}
 
@@ -529,12 +529,12 @@ var obs_stats = observed.getStats();
 			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .assists").html(stats.assists);
 			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .deaths").html(stats.deaths);
 			if(stats.round_kills > 0){
-				$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src=\"images/death.png\"  style=\"float:" + ((side == "ct") ? "left" : "right") + "; height:60%; margin-top:5px;\"/><div style=\"text-shadow: 0 0 10px black; float:" + ((side == "ct") ? "left" : "right") + ";\">" + stats.round_kills + "</div>");
+				$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src=\"death.png\"  style=\"float:" + ((side == "ct") ? "left" : "right") + "; height:60%; margin-top:5px;\"/><div style=\"text-shadow: 0 0 10px black; float:" + ((side == "ct") ? "left" : "right") + ";\">" + stats.round_kills + "</div>");
 			}
 
 			//ITEMS
-			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .hp_el").html((stats.helmet == true) ? "<img src=\"images/helmet.png\" />" : ((stats.armor >0) ? "<img src=\"armor.png\" />" : ""));
-			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html((stats.defusekit) ? "<img src=\"images/defuse.png\" class=\"invert_brightness\"/>" : "");
+			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .hp_el").html((stats.helmet == true) ? "<img src=\"helmet.png\" />" : ((stats.armor >0) ? "<img src=\"armor.png\" />" : ""));
+			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html((stats.defusekit) ? "<img src=\"defuse.png\" class=\"invert_brightness\"/>" : "");
 			$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .moneys").html("$" + stats.money);
 
 			$("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").html("");
@@ -547,7 +547,7 @@ var obs_stats = observed.getStats();
 						addclass = "checked";
 					}
 					for(var x = 0; x < weapon.ammo_reserve; x++){
-						$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").append("<img src='images/weapons/" + weapon.name + ".png' class=\"invert " + addclass + "\" />");
+						$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").append("<img src='" + weapon.name + ".png' class=\"invert " + addclass + "\" />");
 					}
 
 				} else if(weapon.type == "Pistol"){
@@ -562,7 +562,7 @@ var obs_stats = observed.getStats();
 						$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" />");
 
 				} else if(weapon.type == "C4"){
-					$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html("<img src=\"images/bomb.png\" class=\"invert_brightness\"/>");
+					$("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html("<img src=\"bomb.png\" class=\"invert_brightness\"/>");
 
 				} else if(weapon.type != "Knife"){
 					var addclass= "";
@@ -693,12 +693,12 @@ var obs_stats = observed.getStats();
 
 		if(data.info.round.bomb){
 			if(data.info.round.bomb == "defused"){
-				img = "<img src=\"images/defuse.png\" class=\"defuse\" />";
+				img = "<img src=\"defuse.png\" class=\"defuse\" />";
 			} else if(data.info.round.bomb == "exploded"){
-				img = "<img src=\"images/bomb.png\" class=\"bomb\" />";
+				img = "<img src=\"bomb.png\" class=\"bomb\" />";
 			}
 		} else {
-			img = "<img src=\"images/skull_" + data.info.round.win_team.toLowerCase() + ".png\" class=\"skull\" />";
+			img = "<img src=\"skull_" + data.info.round.win_team.toLowerCase() + ".png\" class=\"skull\" />";
 		}
 		if(data.info.map.round < 16){
 			$("#stats_1st").prepend("<div class=\"" + classes + "\">" + img + "</div>");

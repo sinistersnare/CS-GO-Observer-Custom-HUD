@@ -9,8 +9,8 @@ body {
 	background-color:rgba(0,0,0,0);
 }
 
-::-webkit-scrollbar {
-	display: none;
+::-webkit-scrollbar { 
+	display: none; 
 }
 #menu {
 	width:20%;
@@ -61,25 +61,27 @@ String.prototype.replaceAll = function(search, replacement) {
 		var target = this;
 		return target.replace(new RegExp(search, 'g'), replacement);
 };
-
-// TODO gracefully fall back to text(?) when no example.png.
 for (i=0;i<huds.length;i++){
 	if (!!debug){
 		console.debug(`HUD_${i}: ${huds[i]}`);
 	}
 	$('body').append('<div class="hud" hud="'+huds[i]+'"><h2>'+huds[i].replaceAll("_"," ")+'</h2><img src="./huds/'+huds[i]+'/example.png" /></div>');
 }
-
 $('.hud').click(function(){
 	$('body').load('./huds/'+$(this).attr("hud")+'/index.html');
 	$('body').append('<style></style>');
 	$('style').load('./huds/'+$(this).attr("hud")+'/style.css');
 });
-
 if (!!dev){
 	$('.dev').fadeIn();
 }
-
+/*
+$('body').append('<h1 id="credits">Credits</h1>');
+$('#credits').click(function(){
+	$('body').load('./credits.html');
+	win.blur();
+})
+*/
 </script>
 <div id="menu">
 	<img style="width: 90%" src="banner.png" alt="CS:GO HUD">
