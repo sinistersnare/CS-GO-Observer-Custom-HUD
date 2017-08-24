@@ -322,15 +322,10 @@ var obs_stats = observed.getStats();
 	var team_ct = data.getCT();
 	var team_t = data.getT();
 
-	var tname = [];
+	var tname = {};
 	var tscore = []
-	// TODO dynamically show team names
-	//tname.ct = team_ct.name;
-	//tname.t = team_t.name;
-	tname.ct = "COUNTER TERRORISTS";
-	tname.t = "TERRORISTS";
-	//tname.ct = map.team_ct.name;
-	//tname.t = map.team_t.name;
+	tname.ct = map.team_ct.name || "COUNTER TERRORISTS";
+	tname.t = map.team_t.name || "TERRORISTS";
 	tscore.ct = team_ct.score;
 	tscore.t = team_t.score;
 
@@ -649,7 +644,6 @@ var obs_stats = observed.getStats();
 					$("#player-container").fadeTo(1000, 1);
 				}
 			}
-
 		} else {
 			if($(".money").css("opacity") == 1){
 				$(".money").fadeTo(1000, 0);
