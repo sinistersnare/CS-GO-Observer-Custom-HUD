@@ -28,7 +28,7 @@
   },
   "main": "index.html",
   "node-main": "server.js",
-  "chromium-args": "--disable-gpu --force-cpu-draw",
+  "chromium-args": "--disable-gpu --force-cpu-draw --enable-logging=stderr",
   "window": {
     "title": "CSGO OBSEVER HUD",
     "icon": "logo.png",
