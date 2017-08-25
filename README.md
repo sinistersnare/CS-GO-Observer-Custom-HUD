@@ -5,9 +5,11 @@ Shout-out to [RedSparr0w](https://github.com/RedSparr0w) for base code and idea!
 ## Sin's instructions for running
 
 - Make sure Node.Js and NW.js binaries are added to PATH.
+- Add the CFG's from `files/cfg` to CSGO's `cfg` folder.
 - Join server to observe
 - In this folder, run `$ nw .` to run the UI Selector
 - Select Sin HUD for best UI
+- run `exec observer.cfg` in console.
 - please report any missing features or bugs!
 
 ## End Sin's instructions.

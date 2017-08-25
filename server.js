@@ -37,9 +37,9 @@ var icons = {
     ak47: "images/weapons/weapon_Ak47.png",
     aug: "images/weapons/weapon_Aug.png",
     famas: "images/weapons/weapon_Famas.png",
-    galilar: "images/weapons/weapon_Galilar",
+    galilar: "images/weapons/weapon_Galilar.png",
     m4a1_silencer: "images/weapons/weapon_M4a1s.png",
-    m4a1: "images/weapons/weapon_M4a4",
+    m4a1: "images/weapons/weapon_M4a4.png",
     sg556: "images/weapons/weapon_Sg556.png",
     awp: "images/weapons/weapon_Awp.png",
     g3sg1: "images/weapons/weapon_G3sg1.png",
@@ -225,6 +225,7 @@ function update(json) {
 }
 
 
+// FIXME wtf is happening here
 var klt = (3.5/31)*1000;
 function showFlash(obs, kl, kcl){
     klt = klt*(kcl/255);
@@ -321,7 +322,8 @@ function updatePage(data) {
             var weapon = wep[key];
             if (weapon.type == "Grenade") {
                 for(var x = 0; x < weapon.ammo_reserve; x++){
-                    $("#nades").append("<img src='images/weapons/" + weapon.name + ".png' style='height: 35px; max-height: 35px; width:auto; filter: invert(100%); float:right; margin-right:10px;'/>");
+                    // add grenade to main inventory list (middle of screen)
+                    $("#nades").append("<img src='" + icons[weapon.name.replace("weapon_", "")] + "' style='height: 35px; max-height: 35px; width:auto; filter: invert(100%); float:right; margin-right:10px;'/>");
                 }
             }
             if (weapon.state == "active" || weapon.state == "reloading") {
@@ -465,24 +467,27 @@ function updatePage(data) {
                 var grad = "linear-gradient(to right, rgba(0,0,0,0) " + (100-parseInt(stats.health)) + "%, " + health_color + " " + (100-parseInt(stats.health)) + "%)";
             }
             $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #bar_username").css("color", (stats.health > 0) ? "white" : "rgba(255, 255, 255, 0.3)");
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #hp_p").html(stats.health);
+            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #hp_p").html((stats.health === 0)? "" : stats.health);
             $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar").css("background", grad);
 
             //STATS
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .kills").html(stats.kills);
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .assists").html(stats.assists);
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .deaths").html(stats.deaths);
+
             if(stats.round_kills > 0){
+                // FIXME this isnt showing?
                 $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src=\"images/death.png\"  style=\"float:" + ((side == "ct") ? "left" : "right") + "; height:60%; margin-top:5px;\"/><div style=\"text-shadow: 0 0 10px black; float:" + ((side == "ct") ? "left" : "right") + ";\">" + stats.round_kills + "</div>");
             }
 
             //ITEMS
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .hp_el").html((stats.helmet == true) ? "<img src=\"images/helmet.png\" />" : ((stats.armor >0) ? "<img src=\"armor.png\" />" : ""));
+            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .hp_el").html((stats.helmet == true) ? "<img src=\"images/helmet.png\" />" : ((stats.armor >0) ? "<img src=\"images/armor.png\" />" : ""));
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html((stats.defusekit) ? "<img src=\"images/defuse.png\" class=\"invert_brightness\"/>" : "");
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .moneys").html("$" + stats.money);
 
             $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").html("");
             $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").html("");
+
             for(var key in weapons){
                 var weapon = weapons[key];
                 if (weapon.type == "Grenade") {
@@ -490,14 +495,14 @@ function updatePage(data) {
                     if(weapon.state == "active"){
                         addclass = "checked";
                     }
-                    for(var x = 0; x < weapon.ammo_reserve; x++){
-                        $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").append("<img src='images/weapons/" + weapon.name + ".png' class=\"invert " + addclass + "\" />");
+                    for(var x = 0; x < weapon.ammo_reserve; x++) {
+                        $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").append("<img src='" + icons[weapon.name.replace("weapon_", "")] + "' class=\"invert " + addclass + "\" />");
                     }
 
                 } else if(weapon.type == "Pistol"){
                     var addclass= "";
                     var name = weapon.name.replace("weapon_", "");
-                    if(weapon.state == "active"){
+                    if(weapon.state == "active") {
                         addclass = "checked";
                     }
                     if(side == "t"){
@@ -510,14 +515,14 @@ function updatePage(data) {
 
                 } else if(weapon.type != "Knife"){
                     var addclass= "";
-                    var name = weapon.name;
+                    var name = weapon.name.replace("weapon_", "");
                     if(weapon.state == "active"){
                         addclass = "checked";
                     }
                     if(side == "t"){
                             addclass = addclass + " img-hor";
                     }
-                    $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").prepend("<img src='images/weapons/" + icons[name] + ".png' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
+                    $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
                 }
             }
 
@@ -632,6 +637,7 @@ function updatePage(data) {
             }
         }
 
+        // TODO: make sure this is working as intended.
         if(data.info.round.bomb){
             if(data.info.round.bomb == "defused"){
                 img = "<img src=\"images/defuse.png\" class=\"defuse\" />";
