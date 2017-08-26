@@ -2,7 +2,7 @@
 
 Shout-out to [RedSparr0w](https://github.com/RedSparr0w) for base code and idea! You are the best, man.
 
-## Sin's instructions for running
+## Instructions for running
 
 - Make sure Node.Js and NW.js binaries are added to PATH.
 - Add the CFG's from `files/cfg` to CSGO's `cfg` folder.
@@ -12,49 +12,25 @@ Shout-out to [RedSparr0w](https://github.com/RedSparr0w) for base code and idea!
 - run `exec observer.cfg` in console.
 - please report any missing features or bugs!
 
-## End Sin's instructions.
+This HUD can be run when observing a game. For example, when watching a demo or a match thru GOTV.
 
-## To-do before running
-- Node.js needs to be installed
-- files/cfg/gamestate_integration_observerspectator.cfg needs to be placed in cfg folder in CS:GO location
-- files/cfg/observer.cfg needs to be placed in cfg folder in CS:GO location
-- CS:GO needs to run on Fullscreen Windowed (I know people may dislike it, but since it's only for observation, soo...)
-- After running CS:GO and connecting to match (or replaying a demo, you can use this in  it too), type to console `exec observer.cfg`, it makes everything default disappear besides map and killfeed
-
-## PGL's style example
-![Here](http://i.imgur.com/p9KNsHB.png)
-So this is possible to do with everything below.
-
-## How I made it run?
- - I installed Node.JS (nodejs.org)
- - I installed NW.js (nwjs.io) to C:\nw
- - I unpacked this whole script to C:\server
- - I run command in cmd "C:\nw\nw.exe C:\server"
-
-I'm not good at this stuff, I've probably made milions of mistakes and anyone with experience could have done it better. But I was the first :) Also if I can, I will help with problems.
-
-Somewhere there is "pgl example.zip" which contains server.js configured to look kinda-like PGL's HUD and files needed. Sorry there is such a mess :c
-
-
-## PGL's example
-I hope neither Valve or PGL will be upset about making [this example](https://mega.nz/#!HpQUFB7Q!MT1TecAVYj8xfdXt4zwyrNa2kSwxFVUdRWkrPIBbBDs), none of the images or graphics are mine btw.
 
 ## Main methods
 It's worth noting all methods return JSONs or `false` boolean, so be prepared for that.
 
 All of main action that will take place on your screen happens in `updatePage()` function, so when you want to represent some information you will need to write your code within its boundaries.
+
 ```javascript
 function updatePage(data) {
-	//Here happens magic
+	// Here happens magic
 }
 ```
-`data`
-variable is being passed to it, and from that we can take actions, such as getting informations about players, map, round phases, etc. Below you will find detailed information about received information :>
+
+`data` variable is being passed to it, and from that we can take actions, such as getting informations about players, map, round phases, etc. Below you will find detailed information about received information :>
 
 ### `data`
 
 Methods to obtain different objects:
-
 
 
 |Method|Description|Example|Returned objects|
@@ -71,6 +47,7 @@ Methods to obtain different objects:
 
 
 Example:
+
 ```javascript
 function updatePage(data) {
 	var player = data.getObserved(); //Getting spectated players object
@@ -99,7 +76,6 @@ function updatePage(data) {
 ### Player
 
 Properties
-
 
 |Property|Description|Example|Values|
 |---|---|---|---|

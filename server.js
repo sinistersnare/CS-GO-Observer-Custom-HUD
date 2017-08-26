@@ -254,18 +254,75 @@ var bestadr = 0;
 var adr_p = [];
 var changed = false;
 
+
+function updateWarmupScreen(data) {
+
+    // Calculates and formats time left in phase
+    var timeInPhase = parseInt(data.phase().phase_ends_in, 10);
+    var minutes = Math.floor(timeInPhase / 60);
+    var seconds = timeInPhase - (minutes * 60);
+    if (seconds < 10) {
+        seconds = "0"+seconds;
+    }
+    var formattedTime = ""+minutes+":"+seconds;
+
+    $("#ingame_ui").css("display", "none");
+    $("#warmup_ui").css("display", "inline-block");
+
+    // players list unneeded info in warmup
+    $(".stat_t").css("display", "none");
+    $(".bomb_defuse").css("display", "none");
+    $(".money").css("display", "none");
+    $(".moneys").css("display", "none");
+
+    $("#time_counter").html(formattedTime);
+    $("#round_counter").html("WARMUP");
+    $("#team_1 > #team_score").html("");
+    $("#team_2 > #team_score").html("");
+
+
+
+    var players = data.getPlayers();
+    for (var steamid in players) {
+        var player = players[steamid];
+        var obs_sl = player.observer_slot;
+        var side = (obs_sl >=1 && obs_sl <= 5) ? "ct" : "t";
+        $("#team_"+ side +">#player"+ obs_sl +">.bar1>.hp_bar>.bar_username").html(player.name.split(" ").join(""));
+    }
+
+    // TODO:
+    // Set Team Names
+}
+
 function updatePage(data) {
-    var observed = data.getObserved();
-    var obs_stats = observed.getStats();
     var phase = data.phase();
+    if (phase.phase === "warmup") {
+        updateWarmupScreen(data);
+        return;
+    }
+
+    // reset what the warmup phase changes
+    $("#ingame_ui").css("display", "inline-block");
+    $("#warmup_ui").css("display", "none");
+    $(".stat_t").css("display", "block");
+    $(".bomb_defuse").css("display", "block");
+    $(".money").css("display", "block");
+    $(".moneys").css("display", "block");
+
+    var observed = data.getObserved();
+
     if(observed.steamid == 1 || data.info.player.activity != "playing"){
-        $("#player-container").css("opacity", "0");
+        $("#player_container").css("opacity", "0");
     } else {
         var obs_stats = observed.getStats();
+        if (!obs_stats) {
+            console.error("HOW??: " + JSON.stringify(observed));
+            return;
+        }
         if(phase.phase == "freezetime" || phase.phase == "intermission"){
 
         } else {
-            $("#player-container").css("opacity", "1");
+            $("#player_container").css("opacity", "1");
         }
     }
 
@@ -279,8 +336,8 @@ function updatePage(data) {
 
     var tname = {};
     var tscore = []
-    tname.ct = map.team_ct.name || "COUNTER TERRORISTS";
-    tname.t = map.team_t.name || "TERRORISTS";
+    tname.ct = (map.team_ct && map.team_ct.name) || "COUNTER TERRORISTS";
+    tname.t = (map.team_t && map.team_t.name) || "TERRORISTS";
     tscore.ct = team_ct.score;
     tscore.t = team_t.score;
 
@@ -338,12 +395,12 @@ function updatePage(data) {
             }
         }
 
-        $("#armor-text").html(obs_stats.armor);
-        $("#health-text").html(obs_stats.health);
+        $("#armor_text").html(obs_stats.armor);
+        $("#health_text").html(obs_stats.health);
         if(obs_stats.helmet){
-            $("#armor-text").css("background-image", "url('images/helmet.png')")
+            $("#armor_text").css("background-image", "url('images/helmet.png')")
         } else {
-            $("#armor-text").css("background-image", "url('images/armor.png')")
+            $("#armor_text").css("background-image", "url('images/armor.png')")
         }
     }
 
@@ -458,7 +515,9 @@ function updatePage(data) {
             }
 
             //NAMES:
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #bar_username").html(player.name.split(" ").join(""));
+            $("#team_"+ side +">#player"+ obs_sl +">.bar1>.hp_bar>.bar_username").html(player.name.split(" ").join(""));
+            // changes color of name to gray when dead
+            $("#team_"+ side +">#player"+ obs_sl +">.bar1>.hp_bar>.bar_username").css("color", (stats.health > 0) ? "white" : "rgba(255, 255, 255, 0.3)");
 
             //HP Bars
             if(obs_sl >= 1 && obs_sl <=5){
@@ -466,27 +525,27 @@ function updatePage(data) {
             } else {
                 var grad = "linear-gradient(to right, rgba(0,0,0,0) " + (100-parseInt(stats.health)) + "%, " + health_color + " " + (100-parseInt(stats.health)) + "%)";
             }
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #bar_username").css("color", (stats.health > 0) ? "white" : "rgba(255, 255, 255, 0.3)");
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #hp_p").html((stats.health === 0)? "" : stats.health);
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar").css("background", grad);
+
+            $("#player"+obs_sl+">.bar1>.hp_bar>.hp_el").html((stats.health === 0)? "" : stats.health);
+            $("#player"+obs_sl+">.bar1>.hp_bar").css("background", grad);
 
             //STATS
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .kills").html(stats.kills);
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .assists").html(stats.assists);
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .stat_t .deaths").html(stats.deaths);
+            $("#player" + obs_sl + ">.bottom_bar>.stat_t>.kills").html(stats.kills);
+            $("#player" + obs_sl + ">.bottom_bar>.stat_t>.assists").html(stats.assists);
+            $("#player" + obs_sl + ">.bottom_bar>.stat_t>.deaths").html(stats.deaths);
 
             if(stats.round_kills > 0){
                 // FIXME this isnt showing?
-                $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src=\"images/death.png\"  style=\"float:" + ((side == "ct") ? "left" : "right") + "; height:60%; margin-top:5px;\"/><div style=\"text-shadow: 0 0 10px black; float:" + ((side == "ct") ? "left" : "right") + ";\">" + stats.round_kills + "</div>");
+                $("#player" + obs_sl + ">.bottom_bar>.equip_bar>#weapon_icon").prepend("<img src=\"images/death.png\"  style=\"float:" + ((side == "ct") ? "left" : "right") + "; height:60%; margin-top:5px;\"/><div style=\"text-shadow: 0 0 10px black; float:" + ((side == "ct") ? "left" : "right") + ";\">" + stats.round_kills + "</div>");
             }
 
             //ITEMS
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .hp_el").html((stats.helmet == true) ? "<img src=\"images/helmet.png\" />" : ((stats.armor >0) ? "<img src=\"images/armor.png\" />" : ""));
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html((stats.defusekit) ? "<img src=\"images/defuse.png\" class=\"invert_brightness\"/>" : "");
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .moneys").html("$" + stats.money);
+            $("#player" + obs_sl + ">.bottom_bar>.equip_bar>.hp_el").html((stats.helmet == true) ? "<img src=\"images/helmet.png\" />" : ((stats.armor >0) ? "<img src=\"images/armor.png\" />" : ""));
+            $("#player" + obs_sl + ">.bottom_bar>.equip_bar>.bomb_defuse").html((stats.defusekit) ? "<img src=\"images/defuse.png\" class=\"invert_brightness\"/>" : "");
+            $("#player" + obs_sl + ">.bottom_bar>.equip_bar>.moneys").html("$" + stats.money);
 
-            $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").html("");
-            $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").html("");
+            $("#player" + obs_sl + ">.bar1>.hp_bar>#weapon_icon").html("");
+            $("#player" + obs_sl + ">.bottom_bar>.equip_bar>#weapon_icon").html("");
 
             for(var key in weapons){
                 var weapon = weapons[key];
@@ -496,9 +555,8 @@ function updatePage(data) {
                         addclass = "checked";
                     }
                     for(var x = 0; x < weapon.ammo_reserve; x++) {
-                        $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").append("<img src='" + icons[weapon.name.replace("weapon_", "")] + "' class=\"invert " + addclass + "\" />");
+                        $("#player" + obs_sl + ">.bottom_bar>.equip_bar>#weapon_icon").append("<img src='" + icons[weapon.name.replace("weapon_", "")] + "' class=\"invert " + addclass + "\" />");
                     }
-
                 } else if(weapon.type == "Pistol"){
                     var addclass= "";
                     var name = weapon.name.replace("weapon_", "");
@@ -506,12 +564,12 @@ function updatePage(data) {
                         addclass = "checked";
                     }
                     if(side == "t"){
-                        addclass += " img-hor";
+                        addclass += " img_hor";
                     }
-                    $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" />");
+                    $("#player" + obs_sl + ">.bottom_bar>.equip_bar>#weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" />");
 
                 } else if(weapon.type == "C4"){
-                    $("#team-" + side + " #player" + obs_sl + " .bottom_bar .equip_bar .bomb_defuse").html("<img src=\"images/bomb.png\" class=\"invert_brightness\"/>");
+                    $("#player" + obs_sl + ">.bottom_bar>.equip_bar>.bomb_defuse").html("<img src=\"images/bomb.png\" class=\"invert_brightness\"/>");
 
                 } else if(weapon.type != "Knife"){
                     var addclass= "";
@@ -520,9 +578,9 @@ function updatePage(data) {
                         addclass = "checked";
                     }
                     if(side == "t"){
-                            addclass = addclass + " img-hor";
+                            addclass = addclass + " img_hor";
                     }
-                    $("#team-" + side + " #player" + obs_sl + " .bar1 .hp_bar #weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
+                    $("#player" + obs_sl + ">.bar1>.hp_bar>#weapon_icon").prepend("<img src='" + icons[name] + "' class=\"invert " + addclass + "\" style=\"max-width:100%; max-height:100%;\"/>");
                 }
             }
 
@@ -535,7 +593,7 @@ function updatePage(data) {
 
                     adr = Math.floor(((stats.kills*100 + stats.assists*58)/(map.round))*(Math.floor((Math.random() * 30) + 85)/100));
                     adr_p["a_" + obs_sl] = adr;
-                    $("#stats_player" + obs_sl + " .adr_stat .adr").html(adr + " ADR");
+                    $("#stats_player" + obs_sl + ">.adr_stat>.adr").html(adr + " ADR");
                     start_money[steamid] = stats.money;
                     if(bestadr < adr){
                         bestadr = adr;
@@ -560,8 +618,7 @@ function updatePage(data) {
             if(start_money[steamid] === undefined){
                 start_money[steamid] = stats.money;
             }
-            $("#stats_player" + obs_sl + " #stat_money").html("-" + (start_money[steamid] - stats.money) + "$")
-
+            $("#stats_player" + obs_sl + " #stat_money").html("-" + (start_money[steamid] - stats.money) + "$");
         }
     }
 
@@ -586,23 +643,23 @@ function updatePage(data) {
                 if($(".money").css("opacity") == 0){
                     $(".money").fadeTo(1000, 1);
                     $(".stat_t").fadeTo(1000, 1);
-                    $("#stats-container").fadeTo(1000, 1);
-                    $("#player-container").fadeTo(1000, 0);
+                    $("#stats_container").fadeTo(1000, 1);
+                    $("#player_container").fadeTo(1000, 0);
                 }
             } else {
                 if($(".money").css("opacity") == 1){
                     $(".money").fadeTo(1000, 0);
                     $(".stat_t").fadeTo(1000, 0);
-                    $("#stats-container").fadeTo(1000, 0);
-                    $("#player-container").fadeTo(1000, 1);
+                    $("#stats_container").fadeTo(1000, 0);
+                    $("#player_container").fadeTo(1000, 1);
                 }
             }
         } else {
             if($(".money").css("opacity") == 1){
                 $(".money").fadeTo(1000, 0);
                 $(".stat_t").fadeTo(1000, 0);
-                $("#stats-container").fadeTo(1000, 0);
-                $("#player-container").fadeTo(1000, 1);
+                $("#stats_container").fadeTo(1000, 0);
+                $("#player_container").fadeTo(1000, 1);
             }
         }
         if(data.info.phase_countdowns.phase_ends_in){
@@ -616,12 +673,10 @@ function updatePage(data) {
         }
     }
 
-    //WIN ICONS
-    if(data.info.round.phase == "over" && last_added[data.info.map.round] !== true){
+    if(phase.phase === "over" && last_added[data.info.map.round] !== true){
         var classes = "";
         var img = "";
         var test_player = data.getPlayer(0);
-
 
         if(test_player.team == data.info.round.win_team){
             if(test_player.observer_slot >=1 && test_player.observer_slot <= 5){
@@ -655,7 +710,7 @@ function updatePage(data) {
         last_added[data.info.map.round] = true;
     }
 
-    if(data.info.round.phase == "freezetime" && data.info.map.round == 0){
+    if(phase.phase == "freezetime" && data.info.map.round == 0){
         last_added = [];
         //$("#stats_1st").html('<div style="height:85px; width:50%; position: absolute; right:0; border-left:1px dotted white;"></div><div style="height:85px; width:50%; position: absolute; left:0; border-right:1px dotted white;"></div><div class="first_t"><div class="round_team_1_name">TEAM 1</div></div><div class="sec_t"><div class="round_team_2_name">TEAM 1</div></div>');
         $(".fst").remove();
