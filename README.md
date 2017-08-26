@@ -1,8 +1,6 @@
-# CS:GO Observer Custom HUD
+# CS:GO Observer Custom HUD #
 
-Shout-out to [RedSparr0w](https://github.com/RedSparr0w) for base code and idea! You are the best, man.
-
-## Instructions for running
+## Instructions for running ##
 
 - Make sure Node.Js and NW.js binaries are added to PATH.
 - Add the CFG's from `files/cfg` to CSGO's `cfg` folder.
@@ -191,4 +189,9 @@ function updatePage(data) {
 
 
 ## Credits
-As I mentioned before, [RedSparr0w](https://github.com/RedSparr0w) is the man I wouldn't make it without.
+
+Credit goes to
+[RedSparr0w](https://github.com/RedSparr0w) and
+[osztenkurden](https://github.com/osztenkurden)
+for their original work.
+
