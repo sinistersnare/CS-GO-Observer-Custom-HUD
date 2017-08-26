@@ -12,6 +12,14 @@
 
 This HUD can be run when observing a game. For example, when watching a demo or a match thru GOTV.
 
+## Example Images
+
+
+![Warmup UI](warmup_pic.png)
+
+![Mid Round UI](midround_pic.png)
+
+
 
 ## Main methods
 It's worth noting all methods return JSONs or `false` boolean, so be prepared for that.
